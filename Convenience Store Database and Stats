@@ -1,0 +1,29 @@
+--Create a convenience store database
+
+CREATE TABLE store (id INTEGER PRIMARY KEY, item TEXT, location TEXT, quantity INTEGER, price INTEGER);
+
+INSERT INTO store VALUES (1, "bottled water", "cooler", 20, 1.99);
+INSERT INTO store VALUES (2, "soda", "cooler", 15, 2.50);
+INSERT INTO store VALUES (3, "pizza slice", "kitchen", 8, 1.50);
+INSERT INTO store VALUES (4, "candy bar", "aisle", 10, 1.25);
+INSERT INTO store VALUES (5, "lotto ticket", "counter", 20, 0.99);
+INSERT INTO store VALUES (6, "chips", "counter", 5, 2.99);
+INSERT INTO store VALUES (7, "orange juice", "cooler", 8, 1.25);
+INSERT INTO store VALUES (8, "chocolate milk", "cooler", 6, 1.50);
+INSERT INTO store VALUES (9, "gum", "aisle", 18, 0.99);
+INSERT INTO store VALUES (10, "phone charger", "end cap", 4, 19.99);
+INSERT INTO store VALUES (11, "cigarettes", "counter", 19, 5.99);
+INSERT INTO store VALUES (12, "beer", "cooler", 10, 3.99);
+INSERT INTO store VALUES (13, "suckers", "aisle", 20, 0.99);
+INSERT INTO store VALUES (14, "burger", "kitchen", 9, 4.99);
+INSERT INTO store VALUES (15, "donuts", "kitchen", 12, 1.99);
+
+--display the database ordered by price
+SELECT * FROM store
+ORDER BY price desc;
+
+--display the total quantity of all items
+SELECT SUM(quantity) FROM store;
+
+--what is the average price of all items in the store
+SELECT AVG(price) FROM store;
