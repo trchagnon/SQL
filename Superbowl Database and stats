@@ -65,25 +65,35 @@ INSERT INTO superbowls(Year,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,Cit
 INSERT INTO superbowls(Year,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,City,State) VALUES (1968,'II (2)','Green Bay Packers',33,'Oakland Raiders',14,'Bart Starr+','Orange Bowl','Miami','Florida');
 INSERT INTO superbowls(Year,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,City,State) VALUES (1967,'I (1)','Green Bay Packers',35,'Kansas City Chiefs',10,'Bart Starr+','Memorial Coliseum','Los Angeles','California');
 
+--display all database
 SELECT * FROM superbowls;
 
+--display winner_pts greater than 30 and order by
 SELECT * FROM superbowls WHERE Winner_Pts > 30 ORDER BY Winner_Pts;
 
-SELECT * FROM superbowls WHERE Winner_Pts > 40 AND Loser_Pts <20;
+--display where winner_pts are greater than 30 and loser_pts are less than 20 only
+SELECT * FROM superbowls WHERE Winner_Pts > 40 AND Loser_Pts < 20;
 
+--display total amount of points from both winner and loser and name column total_pts
 SELECT SUM(Winner_Pts+Loser_Pts) AS total_pts FROM superbowls;
 
+--display the winners and their total points, name column total_winner_pts using group by and having commands to filter points greater than 100
 SELECT Winner, SUM(Winner_Pts) AS total_winner_pts FROM superbowls
 GROUP BY Winner 
 HAVING total_winner_pts > 100;
 
+--display the average winner points, name new column avg_winner_pts using group by and having commands
 SELECT Winner, AVG(Winner_Pts) AS avg_winner_pts FROM superbowls
 GROUP BY Winner 
 HAVING avg_winner_pts;
 
-SELECT COUNT(*) FROM superbowls WHERE state = "Florida";
-SELECT COUNT(*) FROM superbowls WHERE state = "California";
+--display total number of superbowls played in Florida and name column FL
+SELECT COUNT(*) AS FL FROM superbowls WHERE state = "Florida";
 
+--display total number of superbowls plays in California and name column CA
+SELECT COUNT(*) AS CA FROM superbowls WHERE state = "California";
+
+--display all mvps alongs with the years, create new columns using case command and filtering results, name new column decades
 SELECT mvp, year,
 CASE
 WHEN year < 1970 THEN "60s"
