@@ -1,0 +1,37 @@
+--Create a famous people database
+
+CREATE TABLE famous_people (id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT, age INTEGER, occupation INTEGER);
+
+INSERT INTO famous_people (first_name, last_name, age, occupation) VALUES ("Michael", "Jordan",  59, 2);
+INSERT INTO famous_people (first_name, last_name, age, occupation) VALUES ("Tom", "Cruise", 60, 1);
+INSERT INTO famous_people (first_name, last_name, age, occupation) VALUES ("J.K.", "Rowling", 57, 5);
+INSERT INTO famous_people (first_name, last_name, age, occupation) VALUES ("Taylor", "Swift", 32, 4);
+INSERT INTO famous_people (first_name, last_name, age, occupation) VALUES ("Gisele", "Bundchen", 42, 3);
+INSERT INTO famous_people (first_name, last_name, age, occupation) VALUES ("Denzel", "Washington", 67, 1);
+INSERT INTO famous_people (first_name, last_name, age, occupation) VALUES ("Ed", "Sheeran", 31, 4);
+INSERT INTO famous_people (first_name, last_name, age, occupation) VALUES ("Heidi", "Klum", 49, 3);
+INSERT INTO famous_people (first_name, last_name, age, occupation) VALUES ("Steven", "King", 74, 5);
+
+
+--Create a professions database
+CREATE TABLE profession (id INTEGER PRIMARY KEY, name TEXT);
+
+INSERT INTO profession (name) VALUES ("actor");
+INSERT INTO profession (name) VALUES ("athlete");
+INSERT INTO profession (name) VALUES ("model");
+INSERT INTO profession (name) VALUES ("musician");
+INSERT INTO profession (name) VALUES ("writer");
+
+--Join famous people database with professions data base and match the famous people with their correct professions and order them by age descending 
+SELECT famous_people.first_name, famous_people.last_name, famous_people.age, profession.name
+FROM famous_people
+LEFT OUTER JOIN profession
+ON famous_people.occupation = profession.id
+ORDER BY age desc;
+
+--show only the "writers" of famous people along with their profession 
+SELECT famous_people.first_name, famous_people.last_name, famous_people.age, profession.name
+FROM famous_people
+LEFT OUTER JOIN profession
+ON famous_people.occupation = profession.id
+WHERE famous_people.occupation = 5;
