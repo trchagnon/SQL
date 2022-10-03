@@ -108,8 +108,31 @@ INNER JOIN chinook.invoices i
 ON c.customerid = i.customerid
 WHERE i.invoicedate LIKE '2009%'
 GROUP BY e.FirstName
-ORDER BY 'Total Sales' desc
+ORDER BY SUM(i.total) desc
 LIMIT 1;
+
+-- Which artist had the most sales.
+
+SELECT art.name AS 'Artist', ROUND(SUM (i.total), 2) AS 'Total Sales'
+FROM chinook.artists art
+INNER JOIN chinook.albums alb
+ON art.artistid = alb.artistid
+INNER JOIN chinook.tracks t
+ON alb.albumid = t.albumid
+INNER JOIN chinook.invoice_items ii
+ON t.trackid = ii.trackid
+INNER JOIN chinook.invoices i
+ON ii.invoiceid = i.invoiceid
+GROUP BY art.name
+ORDER BY SUM(i.total) desc
+LIMIT 1;
+
+-- show total sales from each country
+
+SELECT BillingCountry as "Country", ROUND(SUM(Total),2) as "Sales"
+FROM chinook.invoices 
+GROUP BY BillingCountry;
+
 
 
 
