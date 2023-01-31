@@ -69,10 +69,10 @@ INSERT INTO superbowls(Year,SB,Winner,Winner_Pts,Loser,Loser_Pts,MVP,Stadium,Cit
 SELECT * FROM superbowls;
 
 --display winner_pts greater than 30 and order by
-SELECT * FROM superbowls WHERE Winner_Pts > 30 ORDER BY Winner_Pts;
+SELECT year, sb, winner, winner_pts FROM superbowls WHERE Winner_Pts > 30 ORDER BY Winner_Pts desc;
 
 --display where winner_pts are greater than 30 and loser_pts are less than 20 only
-SELECT * FROM superbowls WHERE Winner_Pts > 40 AND Loser_Pts < 20;
+SELECT year, sb, winner, winner_pts, loser, loser_pts FROM superbowls WHERE Winner_Pts > 40 AND Loser_Pts < 20;
 
 --display total amount of points from both winner and loser and name column total_pts
 SELECT SUM(Winner_Pts+Loser_Pts) AS total_pts FROM superbowls;
