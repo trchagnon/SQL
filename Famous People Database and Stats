@@ -34,4 +34,4 @@ SELECT famous_people.first_name, famous_people.last_name, famous_people.age, pro
 FROM famous_people
 LEFT OUTER JOIN profession
 ON famous_people.occupation = profession.id
-WHERE famous_people.occupation = 5;
+WHERE profession.name = "writer";
