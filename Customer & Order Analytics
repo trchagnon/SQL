@@ -2,25 +2,37 @@
 
 #1. How many orders were placed in January?
 
-SELECT COUNT (orderID) FROM BIT_DB.JanSales;
+SELECT COUNT(orderID)
+FROM BIT_DB.JanSales
+WHERE length (orderID) = 6
+AND orderID <> 'Order ID';
 
 #2. How many of those orders were for an iPhone? 
 
-SELECT COUNT (orderID) FROM BIT_DB.JanSales
-WHERE Product = "iPhone";
+SELECT COUNT(orderID)
+FROM BIT_DB.JanSales
+WHERE Product='iPhone'
+AND length(orderID) = 6 
+AND orderid <> 'Order ID';
 
 #3. Select the customer account numbers for all the orders that were placed in February.
 
-SELECT acctnum 
-FROM BIT_DB.customers cust 
-INNER JOIN BIT_DB.FebSales Feb
-ON cust.order_id = Feb.orderID;
+SELECT DISTINCT cust.acctnum
+FROM BIT_DB.customers cust
+INNER JOIN BIT_DB.FebSales feb
+ON cust.order_id=feb.orderid
+WHERE length(orderid) = 6 
+AND orderid <> 'Order ID';
 
 #4. Which product was the cheapest one sold in January, and what was the price?
 
-SELECT distinct Product, price
+SELECT DISTINCT product, price FROM BIT_DB.JanSales 
+ORDER BY price asc
+LIMIT 1;
+#OR
+SELECT DISTINCT Product, price
 FROM BIT_DB.JanSales
-WHERE  price in (SELECT min(price) FROM BIT_DB.JanSales);
+WHERE price IN (SELECT min(price) FROM BIT_DB.JanSales); 
 
 #5. What is the total revenue for each product sold in January?
 
@@ -30,25 +42,27 @@ GROUP BY Product;
 
 #6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
 
-SELECT Product, Quantity, SUM(Quantity)* price as revenue FROM BIT_DB.FebSales
+SELECT SUM(Quantity), Product, SUM(Quantity)* price as revenue 
+FROM BIT_DB.FebSales
 WHERE location = "548 Lincoln St, Seattle, WA 98101"
 GROUP BY Product;
 
 #7. How many customers ordered more than 2 products at a time, and what was the average amount spent for those customers? 
 
-SELECT COUNT(cust.acctnum), AVG(quantity*price)
+SELECT COUNT(DISTINCT cust.acctnum), AVG(quantity*price)
 FROM BIT_DB.FebSales Feb
 LEFT JOIN BIT_DB.customers cust
 on Feb.orderid = cust.order_id
 WHERE Feb.Quantity>2
+AND length(orderid) = 6 
+AND orderid <> 'Order ID';
 
 #8. List all the products sold in Los Angeles in February, and include how many of each were sold.
 
-SELECT SUM(Quantity), Product, location, orderdate
+SELECT SUM(Quantity), Product, location
 FROM BIT_DB.FebSales
 WHERE location like "%Los Angeles%"
-GROUP BY Product
-ORDER BY orderdate asc;
+GROUP BY Product;
 
 #9. Which locations in New York received at least 3 orders in January, and how many orders did they each receive?
 
